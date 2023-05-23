@@ -11,7 +11,6 @@
 //
 // Execute `rustlings hint hashmaps2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 use std::collections::HashMap;
 
@@ -25,7 +24,7 @@ enum Fruit {
 }
 
 fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
-    let fruit_kinds = vec![
+    let fruit_kinds: Vec<Fruit> = vec![
         Fruit::Apple,
         Fruit::Banana,
         Fruit::Mango,
@@ -37,6 +36,7 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
         // TODO: Put new fruits if not already present. Note that you
         // are not allowed to put any type of fruit that's already
         // present!
+        basket.entry(fruit).or_insert(1);
     }
 }
 
@@ -45,7 +45,7 @@ mod tests {
     use super::*;
 
     fn get_fruit_basket() -> HashMap<Fruit, u32> {
-        let mut basket = HashMap::<Fruit, u32>::new();
+        let mut basket: HashMap<Fruit, u32> = HashMap::<Fruit, u32>::new();
         basket.insert(Fruit::Apple, 4);
         basket.insert(Fruit::Mango, 2);
         basket.insert(Fruit::Lychee, 5);
@@ -55,7 +55,7 @@ mod tests {
 
     #[test]
     fn test_given_fruits_are_not_modified() {
-        let mut basket = get_fruit_basket();
+        let mut basket: HashMap<Fruit, u32> = get_fruit_basket();
         fruit_basket(&mut basket);
         assert_eq!(*basket.get(&Fruit::Apple).unwrap(), 4);
         assert_eq!(*basket.get(&Fruit::Mango).unwrap(), 2);
@@ -64,7 +64,7 @@ mod tests {
 
     #[test]
     fn at_least_five_types_of_fruits() {
-        let mut basket = get_fruit_basket();
+        let mut basket: HashMap<Fruit, u32> = get_fruit_basket();
         fruit_basket(&mut basket);
         let count_fruit_kinds = basket.len();
         assert!(count_fruit_kinds >= 5);
@@ -72,9 +72,10 @@ mod tests {
 
     #[test]
     fn greater_than_eleven_fruits() {
-        let mut basket = get_fruit_basket();
+        let mut basket: HashMap<Fruit, u32> = get_fruit_basket();
         fruit_basket(&mut basket);
-        let count = basket.values().sum::<u32>();
+        let count: u32 = basket.values().sum::<u32>();
+        println!("{}",count);
         assert!(count > 11);
     }
 }
